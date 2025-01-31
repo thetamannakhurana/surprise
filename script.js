@@ -1,4 +1,4 @@
-// Countdown Timer (Until 10 PM)
+// Countdown Timer (Till 10 PM)
 const targetTime = new Date();
 targetTime.setHours(22, 0, 0, 0);
 
@@ -17,98 +17,78 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 
-// Load Game Based on Time of Day
+// Games
 function startGame() {
     const now = new Date();
     const hour = now.getHours();
+
     let gameHtml = '';
     let gameMessage = '';
-
+    
     if (hour >= 8 && hour < 11) {
         gameHtml = generateMemoryMatchGame();
-        gameMessage = "Match the cute pairs! 🧡";
+        gameMessage = "Memory Match: Match the pairs! 💞";
     } else if (hour >= 11 && hour < 14) {
         gameHtml = generateWordScrambleGame();
-        gameMessage = "Unscramble this cute word! 💕";
+        gameMessage = "Word Scramble: Unscramble the word! 🧩";
     } else if (hour >= 14 && hour < 17) {
         gameHtml = generateRiddleGame();
-        gameMessage = "Solve this love riddle! ❤️";
+        gameMessage = "Riddle Challenge: Solve this! 🧐";
     } else if (hour >= 17 && hour < 19.5) {
         gameHtml = generateGuessEmojiGame();
-        gameMessage = "Guess the cute emoji! 😍";
+        gameMessage = "Guess the Emoji! 🤔";
     } else if (hour >= 19.5 && hour < 21) {
         gameHtml = generateTriviaQuizGame();
-        gameMessage = "Answer this sweet quiz! 🎀";
+        gameMessage = "Trivia Quiz! 📚";
     }
 
     document.getElementById("game").innerHTML = gameHtml;
     document.getElementById("gameMessage").innerText = gameMessage;
 }
 
-// Memory Match Game (8AM - 11AM)
-function generateMemoryMatchGame() {
-    return `<p>Find the matching hearts! 💕</p>
-            <button onclick="redirectToMessage()">I matched them all! 💖</button>`;
-}
-
-// Word Scramble Game (11AM - 2PM)
-function generateWordScrambleGame() {
-    return `<p>Scrambled word: "sseuiprr"</p>
-            <input type="text" id="wordInput">
-            <button onclick="checkWordScramble()">Check</button>`;
-}
-
-function checkWordScramble() {
-    const input = document.getElementById('wordInput').value.toLowerCase();
-    if (input === 'surprise') {
-        redirectToMessage();
-    } else {
-        alert('Try again! 💕');
-    }
-}
-
-// Riddle Game (2PM - 5PM)
-function generateRiddleGame() {
-    return `<p>I am tall when I am young, short when I am old. What am I?</p>
-            <input type="text" id="riddleInput">
-            <button onclick="checkRiddle()">Submit</button>`;
-}
-
-function checkRiddle() {
-    const answer = document.getElementById('riddleInput').value.toLowerCase();
-    if (answer === 'candle') {
-        redirectToMessage();
-    } else {
-        alert('Try again! 💕');
-    }
-}
-
-// Guess Emoji Game (5PM - 7:30PM)
-function generateGuessEmojiGame() {
-    return `<p>Guess the emoji: 🍎</p>
-            <input type="text" id="emojiInput">
-            <button onclick="checkEmoji()">Submit</button>`;
-}
-
-function checkEmoji() {
-    if (document.getElementById('emojiInput').value.toLowerCase() === 'apple') {
-        redirectToMessage();
-    } else {
-        alert('Try again! 💕');
-    }
-}
-
-// Trivia Quiz (7:30PM - 9PM)
-function generateTriviaQuizGame() {
-    return `<p>What is the capital of France?</p>
-            <button onclick="redirectToMessage()">Paris</button>
-            <button onclick="alert('Try again! 💕')">London</button>`;
-}
-
-// Redirect to Message
-function redirectToMessage() {
+// Redirect after correct answers
+function goToMessagePage() {
     window.location.href = "message.html";
 }
 
-// Start Game on Load
+// Memory Match Game (Now Functional!)
+let flippedCards = [];
+function generateMemoryMatchGame() {
+    const words = ['💖', '🌸', '💞', '🎀'];
+    const shuffledWords = words.concat(words).sort(() => Math.random() - 0.5);
+
+    let gameHtml = `<p>Match the hearts! 💕</p><div class="game-board">`;
+    shuffledWords.forEach((word, index) => {
+        gameHtml += `<div class="game-card" id="card${index}" onclick="flipCard(${index}, '${word}')">?</div>`;
+    });
+    gameHtml += `</div>`;
+    return gameHtml;
+}
+
+function flipCard(index, word) {
+    const card = document.getElementById(`card${index}`);
+    if (flippedCards.length < 2 && !card.classList.contains("matched")) {
+        card.innerText = word;
+        flippedCards.push({ index, word });
+    }
+    
+    if (flippedCards.length === 2) {
+        setTimeout(checkMemoryMatch, 500);
+    }
+}
+
+function checkMemoryMatch() {
+    if (flippedCards[0].word === flippedCards[1].word) {
+        document.getElementById(`card${flippedCards[0].index}`).classList.add("matched");
+        document.getElementById(`card${flippedCards[1].index}`).classList.add("matched");
+    } else {
+        document.getElementById(`card${flippedCards[0].index}`).innerText = "?";
+        document.getElementById(`card${flippedCards[1].index}`).innerText = "?";
+    }
+    flippedCards = [];
+    
+    if (document.querySelectorAll(".matched").length === 8) {
+        goToMessagePage();
+    }
+}
 window.onload = startGame;
