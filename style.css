@@ -1,163 +1,70 @@
-/* General Page Styles */
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-family: "Arial", sans-serif;
     background-color: #ffe6f2;
     text-align: center;
-    color: #ff4081;
-    margin: 0;
-    padding: 0;
+    padding: 20px;
+    overflow: hidden;
 }
 
-/* Main Container */
 .container {
-    max-width: 500px;
     background: white;
     padding: 20px;
-    margin: 50px auto;
     border-radius: 15px;
-    box-shadow: 0px 0px 15px rgba(255, 105, 180, 0.3);
-    animation: fadeIn 1.5s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    margin-top: 50px;
+    position: relative;
 }
 
-/* Heading Styles */
 h1 {
+    color: #ff66b2;
     font-size: 30px;
-    color: #ff1493;
-    text-shadow: 2px 2px 5px rgba(255, 20, 147, 0.3);
 }
 
-/* Paragraphs */
-p {
-    font-size: 18px;
-    color: #d81b60;
+.glowing-text {
+    font-size: 30px;
+    color: #ff66b2;
+    text-shadow: 0 0 10px #ff66b2, 0 0 20px #ff3385;
 }
 
-/* Buttons */
-button, .btn {
-    background-color: #ff69b4;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: transform 0.2s, background 0.3s;
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
 }
 
-button:hover, .btn:hover {
-    background-color: #ff1493;
-    transform: scale(1.1);
-}
-
-/* Inputs */
-input {
-    padding: 10px;
-    border: 2px solid #ff69b4;
-    border-radius: 8px;
-    font-size: 16px;
-    width: 80%;
-    text-align: center;
-    outline: none;
-}
-
-input:focus {
-    border-color: #ff1493;
-}
-
-/* Countdown Timer */
-#countdown-container {
-    margin-top: 20px;
-    background: #ffe0eb;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #d81b60;
-}
-
-/* Animations */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-@keyframes heartBeat {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+/* Floating Hearts */
+.floating-hearts::before {
+    content: "💖 💞 💘 💕 💝";
+    position: absolute;
+    font-size: 30px;
+    animation: floatHearts 5s infinite alternate ease-in-out;
 }
 
-/* Game Section */
-#game {
-    background: #fff5f8;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 20, 147, 0.2);
+@keyframes floatHearts {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-30px); }
 }
 
-/* Memory Match Game */
+/* Game Board */
 .game-board {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
     gap: 10px;
-    margin-top: 20px;
-}
-
-.game-item {
-    width: 80px;
-    height: 80px;
-    background: #ff80ab;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 20px;
-    font-weight: bold;
+}
+
+.game-card {
+    background: #ff66b2;
     color: white;
-    border-radius: 10px;
+    padding: 15px;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(255, 105, 180, 0.4);
-    transition: background 0.3s, transform 0.2s;
 }
 
-.game-item:hover {
-    background: #ff4081;
-    transform: scale(1.1);
-}
-
-/* Trivia Quiz */
-.quiz-question {
-    font-size: 18px;
-    font-weight: bold;
-    color: #d81b60;
-}
-
-.quiz-options {
-    margin-top: 10px;
-}
-
-.quiz-options input {
-    margin-right: 5px;
-}
-
-.quiz-options label {
-    font-size: 16px;
-    color: #ff4081;
-}
-
-/* Love Message After Winning */
-.love-message {
-    font-size: 20px;
-    font-weight: bold;
-    color: #ff4081;
-    margin-top: 20px;
-    animation: heartBeat 1.5s infinite;
+.game-card.matched {
+    background: #ff99cc;
 }
