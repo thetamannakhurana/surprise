@@ -1,39 +1,9 @@
 body {
-    font-family: "Arial", sans-serif;
+    font-family: "Comic Sans MS", cursive, sans-serif;
     background-color: #ffe6f2;
     text-align: center;
     padding: 20px;
     overflow: hidden;
-}
-
-.container {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    display: inline-block;
-    margin-top: 50px;
-    position: relative;
-}
-
-h1 {
-    color: #ff66b2;
-    font-size: 30px;
-}
-
-.glowing-text {
-    font-size: 30px;
-    color: #ff66b2;
-    text-shadow: 0 0 10px #ff66b2, 0 0 20px #ff3385;
-}
-
-.fade-in {
-    animation: fadeIn 2s ease-in-out;
-}
-
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
 }
 
 /* Floating Hearts */
@@ -49,22 +19,58 @@ h1 {
     100% { transform: translateY(-30px); }
 }
 
-/* Game Board */
-.game-board {
-    display: grid;
-    grid-template-columns: repeat(4, 60px);
-    gap: 10px;
-    justify-content: center;
+/* Bouncy Entrance */
+.bounce-in {
+    animation: bounceIn 1.5s ease-in-out;
 }
 
-.game-card {
-    background: #ff66b2;
+@keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Cute Container */
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    margin-top: 50px;
+    position: relative;
+}
+
+/* Glowing Text */
+.glowing-text {
+    font-size: 30px;
+    color: #ff66b2;
+    text-shadow: 0 0 10px #ff66b2, 0 0 20px #ff3385;
+}
+
+/* Fade-in Effect */
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Cute Button */
+.cute-button {
+    display: inline-block;
+    background-color: #ff66b2;
     color: white;
-    padding: 15px;
-    border-radius: 8px;
-    cursor: pointer;
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
 }
 
-.game-card.matched {
-    background: #ff99cc;
+.cute-button:hover {
+    background-color: #ff99cc;
+    transform: scale(1.1);
 }
