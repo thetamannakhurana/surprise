@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💖 Your Special Surprise 💖</title>
+    <title>Secret Entry</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Floating Hearts Animation -->
-    <div class="floating-hearts"></div>
-
-    <div class="container bounce-in">
-        <h1 class="glowing-text">Welcome, My Love! 💕</h1>
-        <p class="fade-in">I made something special for you! 🥰</p>
-        <p class="fade-in">Are you ready for your surprises? 🎀</p>
-
-        <!-- Cute Button to Enter -->
-        <a href="secret.html" class="cute-button">Enter 💖</a>
+    <div class="heart-container"></div>
+    <div class="container">
+        <h1 class="glowing-text">Enter Secret Name 💖</h1>
+        <input type="password" id="passwordInput" placeholder="Enter secret name">
+        <button onclick="checkPassword()">Unlock</button>
+        <p id="errorMsg"></p>
     </div>
+    <script>
+        function checkPassword() {
+            const input = document.getElementById("passwordInput").value.toLowerCase();
+            if (input === "cutie") {
+                window.location.href = "secret.html";
+            } else {
+                document.getElementById("errorMsg").textContent = "Oops! Try again 💕";
+            }
+        }
 
-    <script src="script.js"></script>
+        // Floating hearts animation
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "floating-heart";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.querySelector(".heart-container").appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
